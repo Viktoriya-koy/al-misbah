@@ -645,3 +645,117 @@ document.addEventListener('DOMContentLoaded', () => {
         new ContextoInteractivo();
     }
 });
+// footer-interactive.js - Funcionalidades para el footer
+class FooterInteractive {
+    constructor() {
+        this.init();
+    }
+    
+    init() {
+        this.setupBackToTop();
+        this.setupCurrentYear();
+        this.setupHoverEffects();
+        this.setupSmoothScroll();
+    }
+    
+    setupBackToTop() {
+        const backToTop = document.getElementById('backToTop');
+        if(!backToTop) return;
+        
+        // Mostrar/ocultar al hacer scroll
+        window.addEventListener('scroll', () => {
+            if(window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        
+        // Smooth scroll al hacer clic
+        backToTop.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+    
+    setupCurrentYear() {
+        const yearElements = document.querySelectorAll('.current-year');
+        const currentYear = new Date().getFullYear();
+        
+        yearElements.forEach(element => {
+            element.textContent = currentYear;
+        });
+    }
+    
+    setupHoverEffects() {
+        // Efecto hover para enlaces del footer
+        const footerLinks = document.querySelectorAll('.footer-links a');
+        
+        footerLinks.forEach(link => {
+            link.addEventListener('mouseenter', function() {
+                const icon = this.querySelector('i');
+                if(icon) {
+                    icon.style.transform = 'translateX(3px)';
+                    icon.style.opacity = '1';
+                }
+            });
+            
+            link.addEventListener('mouseleave', function() {
+                const icon = this.querySelector('i');
+                if(icon) {
+                    icon.style.transform = 'translateX(0)';
+                    icon.style.opacity = '0.7';
+                }
+            });
+        });
+        
+        // Efecto hover para botones de donación
+        const donationBtns = document.querySelectorAll('.btn-donacion');
+        
+        donationBtns.forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                const span = this.querySelector('span');
+                if(span) {
+                    span.style.transform = 'scale(1.1)';
+                }
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                const span = this.querySelector('span');
+                if(span) {
+                    span.style.transform = 'scale(1)';
+                }
+            });
+        });
+    }
+    
+    setupSmoothScroll() {
+        // Smooth scroll para enlaces internos en el footer
+        document.querySelectorAll('footer a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                
+                // Solo si no es "#" vacío
+                if(href !== '#') {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(href);
+                    
+                    if(targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+    }
+}
+
+// Inicializar cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', () => {
+    new FooterInteractive();
+});
