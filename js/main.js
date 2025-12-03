@@ -1,16 +1,47 @@
 // main.js - Funcionalidades principales de Al-Misbah
 
 // ===== CONTADOR DE TASBIH =====
-class ContadorTasbih {
+// tasbih-enhanced.js - Contador de Tasbih mejorado
+class TasbihMejorado {
     constructor() {
         this.contador = 0;
         this.totalPerlas = 33;
+        this.formulas = [
+            {
+                arabic: "سُبْحَانَ الله",
+                latin: "Subhanallah",
+                significado: "Gloria a Alá",
+                recomendacion: "33 veces"
+            },
+            {
+                arabic: "الْحَمْدُ لِله",
+                latin: "Alhamdulillah",
+                significado: "Alabado sea Alá",
+                recomendacion: "33 veces"
+            },
+            {
+                arabic: "اللهُ أَكْبَر",
+                latin: "Allahu Akbar",
+                significado: "Alá es el más grande",
+                recomendacion: "33 veces"
+            },
+            {
+                arabic: "لا إله إلا الله",
+                latin: "La ilaha illallah",
+                significado: "No hay más dios que Alá",
+                recomendacion: "1 vez (completa 100)"
+            }
+        ];
+        
+        this.formulaActual = 0;
         this.init();
     }
     
     init() {
         this.inicializarPerlas();
         this.setupEventListeners();
+        this.actualizarInterfaz();
+        this.setupPerlasClick();
     }
     
     inicializarPerlas() {
@@ -18,50 +49,198 @@ class ContadorTasbih {
         if(!perlasGrid) return;
         
         perlasGrid.innerHTML = '';
+        
         for(let i = 1; i <= this.totalPerlas; i++) {
             const perla = document.createElement('div');
             perla.className = 'perla';
-            perla.textContent = i;
+            if(i === 33) perla.classList.add('marca-33');
+            
+            perla.innerHTML = `
+                <span>${i}</span>
+                <div class="perla-contador">${i}</div>
+            `;
+            
+            perla.dataset.numero = i;
             perlasGrid.appendChild(perla);
         }
+        
         this.actualizarPerlas();
+    }
+    
+    setupPerlasClick() {
+        const perlas = document.querySelectorAll('.perla');
+        perlas.forEach(perla => {
+            perla.addEventListener('click', () => {
+                const numero = parseInt(perla.dataset.numero);
+                this.contador = numero;
+                this.actualizarInterfaz();
+            });
+        });
     }
     
     actualizarPerlas() {
         const perlas = document.querySelectorAll('.perla');
-        const counter = document.getElementById('counter');
-        
-        if(counter) counter.textContent = this.contador;
         
         perlas.forEach((perla, index) => {
-            if(index < this.contador) {
+            const numero = parseInt(perla.dataset.numero);
+            
+            // Resetear todas
+            perla.classList.remove('activa');
+            
+            // Activar las que corresponden
+            if(numero <= this.contador) {
                 perla.classList.add('activa');
-            } else {
-                perla.classList.remove('activa');
+                
+                // Efecto visual para la última activada
+                if(numero === this.contador) {
+                    this.animarPerla(perla);
+                }
+            }
+            
+            // Actualizar fórmula cada 33
+            if(this.contador > 0 && this.contador % 33 === 0) {
+                this.formulaActual = (this.contador / 33) % this.formulas.length;
+                this.actualizarFormula();
             }
         });
     }
     
-    setupEventListeners() {
-        const addBtn = document.getElementById('addOne');
-        const resetBtn = document.getElementById('resetCounter');
+    animarPerla(perla) {
+        perla.style.transform = 'scale(1.3)';
+        setTimeout(() => {
+            perla.style.transform = 'scale(1.15)';
+        }, 150);
+    }
+    
+    actualizarFormula() {
+        const formula = this.formulas[this.formulaActual];
         
+        // Actualizar indicador
+        const indicador = document.querySelector('.dhikr-actual');
+        const traduccion = document.querySelector('.dhikr-traduccion');
+        const significado = document.querySelector('.dhikr-significado');
+        
+        if(indicador) indicador.textContent = formula.arabic;
+        if(traduccion) traduccion.textContent = formula.latin;
+        if(significado) significado.textContent = `${formula.significado} (${formula.recomendacion})`;
+        
+        // Actualizar fórmula activa en grid
+        document.querySelectorAll('.formula-item').forEach((item, index) => {
+            item.classList.toggle('activa', index === this.formulaActual);
+        });
+    }
+    
+    setupEventListeners() {
+        // Botón +1
+        const addBtn = document.getElementById('addOne');
         if(addBtn) {
             addBtn.addEventListener('click', () => {
                 this.contador++;
-                if(this.contador > this.totalPerlas) this.contador = 1;
-                this.actualizarPerlas();
+                if(this.contador > 99) this.contador = 0; // Reset después de 99
+                this.actualizarInterfaz();
+                this.playClickSound();
+            });
+            
+            // También con tecla espacio
+            document.addEventListener('keydown', (e) => {
+                if(e.code === 'Space' && !e.target.matches('input, textarea')) {
+                    e.preventDefault();
+                    this.contador++;
+                    if(this.contador > 99) this.contador = 0;
+                    this.actualizarInterfaz();
+                    this.playClickSound();
+                }
             });
         }
         
+        // Botón reset
+        const resetBtn = document.getElementById('resetCounter');
         if(resetBtn) {
             resetBtn.addEventListener('click', () => {
                 this.contador = 0;
-                this.actualizarPerlas();
+                this.formulaActual = 0;
+                this.actualizarInterfaz();
+                this.playResetSound();
             });
+        }
+        
+        // Botones de fórmula
+        document.querySelectorAll('.formula-item').forEach((item, index) => {
+            item.addEventListener('click', () => {
+                this.formulaActual = index;
+                this.actualizarFormula();
+            });
+        });
+    }
+    
+    actualizarInterfaz() {
+        // Actualizar contador numérico
+        const counter = document.getElementById('counter');
+        if(counter) counter.textContent = this.contador;
+        
+        // Actualizar perlas visuales
+        this.actualizarPerlas();
+        
+        // Actualizar fórmula si corresponde
+        if(this.contador > 0 && this.contador % 33 === 0) {
+            this.formulaActual = (this.contador / 33) % this.formulas.length;
+        }
+        this.actualizarFormula();
+    }
+    
+    playClickSound() {
+        // Sonido sutil de click (opcional)
+        try {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.value = 800;
+            oscillator.type = 'sine';
+            
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.1);
+        } catch (e) {
+            // Fallback silencioso si no hay AudioContext
+        }
+    }
+    
+    playResetSound() {
+        // Sonido diferente para reset
+        try {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.value = 400;
+            oscillator.type = 'sine';
+            
+            gainNode.gain.setValueAtTime(0.15, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.3);
+        } catch (e) {
+            // Fallback silencioso
         }
     }
 }
+
+// Inicializar cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', () => {
+    if(document.getElementById('perlasGrid')) {
+        new TasbihMejorado();
+    }
+});
 
 // ===== VERSO DEL DÍA =====
 class VersoDelDia {
