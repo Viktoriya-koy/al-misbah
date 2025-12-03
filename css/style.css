@@ -1,0 +1,448 @@
+/* ===== VARIABLES Y RESET ===== */
+:root {
+    /* PALETA AL-MISBAH */
+    --verde-profundo: #0d7377;
+    --turquesa: #32e0c4;
+    --blanco-rotura: #f5f9f9;
+    --dorado-sutil: #d4af37;
+    --dorado-brillante: #ffd700;
+    --gris-texto: #2d3748;
+    --gris-claro: #e2e8f0;
+    
+    /* Tipografía */
+    --font-arabic: 'Amiri', serif;
+    --font-text: 'Open Sans', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-text);
+    line-height: 1.6;
+    color: var(--gris-texto);
+    background-color: var(--blanco-rotura);
+}
+
+h1, h2, h3, h4 {
+    font-family: var(--font-arabic);
+    font-weight: 700;
+    color: var(--verde-profundo);
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ===== HEADER (igual que Kodyan Care) ===== */
+header {
+    background: linear-gradient(135deg, var(--verde-profundo) 0%, #0a5c5f 100%);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 20px rgba(13, 115, 119, 0.15);
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-arabic);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--dorado-brillante);
+    text-decoration: none;
+    padding-bottom: 5px;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.logo:hover {
+    border-bottom: 2px solid var(--dorado-sutil);
+}
+
+.logo-icon {
+    font-size: 2.2rem;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+/* ===== NAVIGATION (estilo Kodyan) ===== */
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.nav-links a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--turquesa);
+}
+
+.btn-special {
+    background: linear-gradient(135deg, var(--dorado-sutil), var(--dorado-brillante));
+    color: var(--verde-profundo) !important;
+    font-weight: 600;
+    padding: 10px 20px !important;
+}
+
+/* ===== HERO SECTION ===== */
+.hero {
+    padding: 6rem 0 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(245, 249, 249, 0.9) 0%, rgba(50, 224, 196, 0.1) 100%);
+}
+
+.hero h1 {
+    font-size: 3.2rem;
+    margin-bottom: 1.5rem;
+    color: var(--verde-profundo);
+}
+
+.hero h1 small {
+    font-size: 1.8rem;
+    color: var(--dorado-sutil);
+    display: block;
+    margin-top: 0.5rem;
+}
+
+.hero p {
+    font-size: 1.3rem;
+    max-width: 700px;
+    margin: 0 auto 2.5rem;
+    color: var(--gris-texto);
+    opacity: 0.9;
+}
+
+/* ===== BOTONES (estilo Kodyan) ===== */
+.btn {
+    padding: 1rem 2.2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--verde-profundo), #0a5c5f);
+    color: white;
+    box-shadow: 0 4px 15px rgba(13, 115, 119, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(13, 115, 119, 0.4);
+}
+
+.btn-outline {
+    border: 2px solid var(--verde-profundo);
+    color: var(--verde-profundo);
+    background: transparent;
+}
+
+.btn-outline:hover {
+    background: var(--verde-profundo);
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* ===== SECCIÓN TÍTULO ===== */
+.section-title {
+    text-align: center;
+    margin-bottom: 3.5rem;
+}
+
+.section-title h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title h2::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--dorado-sutil), var(--dorado-brillante));
+    margin: 15px auto;
+    border-radius: 2px;
+}
+
+.section-title p {
+    color: #666;
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* ===== GRID DE HERRAMIENTAS (estilo Kodyan) ===== */
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.tool-item {
+    background: white;
+    border-radius: 16px;
+    padding: 2.2rem;
+    text-align: center;
+    border: 1px solid var(--gris-claro);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.tool-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(13, 115, 119, 0.12);
+    border-color: var(--turquesa);
+}
+
+.tool-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--turquesa), var(--verde-profundo));
+}
+
+.tool-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--dorado-sutil);
+}
+
+/* ===== SECCIÓN CORÁN PDF ===== */
+.coran-section {
+    padding: 5rem 0;
+    background: white;
+}
+
+.coran-preview {
+    background: var(--blanco-rotura);
+    border-radius: 20px;
+    padding: 3rem;
+    border: 2px solid var(--gris-claro);
+}
+
+.coran-cover {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    margin-bottom: 2.5rem;
+}
+
+.coran-image {
+    width: 150px;
+    height: 200px;
+    background: linear-gradient(135deg, var(--verde-profundo), var(--turquesa));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 5rem;
+    box-shadow: 0 10px 30px rgba(13, 115, 119, 0.3);
+}
+
+.coran-info h3 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.coran-details {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1rem;
+    color: #666;
+}
+
+.coran-actions {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+}
+
+.coran-features ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.coran-features li {
+    padding: 0.5rem 0;
+    color: #555;
+}
+
+/* ===== VERSO DEL DÍA ===== */
+.verso-del-dia {
+    padding: 5rem 0;
+    background: linear-gradient(135deg, rgba(13, 115, 119, 0.05) 0%, rgba(50, 224, 196, 0.05) 100%);
+}
+
+.verso-container {
+    background: white;
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    max-width: 900px;
+    margin: 0 auto;
+    border-top: 6px solid var(--dorado-sutil);
+}
+
+/* ===== CONTADOR TASBIH ===== */
+.tasbih-counter {
+    padding: 5rem 0;
+    background: white;
+}
+
+.tasbih-container {
+    background: var(--blanco-rotura);
+    border-radius: 20px;
+    padding: 3rem;
+    border: 2px solid var(--gris-claro);
+}
+
+/* ===== 99 NOMBRES ===== */
+.nombres-allah {
+    padding: 5rem 0;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, rgba(13, 115, 119, 0.05) 100%);
+}
+
+/* ===== CONTEXTO ===== */
+.contexto {
+    padding: 5rem 0;
+    background: white;
+}
+
+.help-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+/* ===== BANNER PREGUNTAS ===== */
+.preguntas-cta {
+    padding: 4rem 0;
+}
+
+.preguntas-banner {
+    background: white;
+    border-radius: 20px;
+    padding: 3rem 2.5rem;
+    border: 2px solid var(--gris-claro);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.preguntas-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--verde-profundo), var(--dorado-sutil), var(--verde-profundo));
+}
+
+/* ===== FOOTER ===== */
+footer {
+    background: linear-gradient(135deg, var(--verde-profundo) 0%, #0a5c5f 100%);
+    color: white;
+    padding: 4rem 0 2rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--verde-profundo);
+        padding: 1rem;
+        gap: 1rem;
+    }
+    
+    .nav-links.active {
+        display: flex;
+    }
+    
+    .hamburger {
+        display: block;
+        font-size: 1.8rem;
+        color: white;
+        cursor: pointer;
+    }
+    
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .coran-cover {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .tools-grid,
+    .help-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.text-center {
+    text-align: center;
+}
