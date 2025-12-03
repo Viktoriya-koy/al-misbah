@@ -255,70 +255,94 @@
     </section>
 
     <!-- ===== CONTADOR DE TASBIH ===== -->
-    <section class="tasbih-counter" id="tasbih">
-        <div class="container">
-            <div class="section-title">
-                <h2>📿 Contador de Tasbih</h2>
-                <p>Para tus súplicas (dua), alabanzas (dhikr) y concentración en la oración</p>
+<section class="tasbih-counter" id="tasbih">
+    <div class="container">
+        <div class="section-title">
+            <h2>📿 Contador de Tasbih Interactivo</h2>
+            <p>Reza con concentración usando estas perlas virtuales. Haz clic en las perlas o usa los botones.</p>
+        </div>
+        
+        <div class="tasbih-container">
+            <!-- Contador principal -->
+            <div class="tasbih-display">
+                <div class="counter-circle">
+                    <span id="counter">0</span>
+                    <div class="counter-label">repeticiones</div>
+                </div>
+                
+                <!-- Indicador de fórmula actual -->
+                <div class="dhikr-indicator">
+                    <div class="dhikr-actual">سُبْحَانَ الله</div>
+                    <div class="dhikr-traduccion">Subhanallah</div>
+                    <div class="dhikr-significado">Gloria a Alá (33 veces)</div>
+                </div>
+                
+                <!-- Botones principales -->
+                <div class="tasbih-buttons">
+                    <button id="addOne" class="tasbih-btn">
+                        <i class="fas fa-plus-circle"></i>
+                        +1 (Usa ESPACIO)
+                    </button>
+                    <button id="resetCounter" class="tasbih-btn reset">
+                        <i class="fas fa-redo"></i>
+                        Reiniciar (0)
+                    </button>
+                </div>
             </div>
             
-            <div class="tasbih-container">
-                <div class="tasbih-display">
-                    <div class="counter-circle">
-                        <span id="counter">0</span>
-                        <div class="counter-label">repeticiones</div>
-                    </div>
-                    
-                    <div class="tasbih-buttons">
-                        <button id="addOne" class="tasbih-btn">
-                            <i class="fas fa-plus-circle"></i>
-                            +1
-                        </button>
-                        <button id="resetCounter" class="tasbih-btn reset">
-                            <i class="fas fa-redo"></i>
-                            Reiniciar
-                        </button>
-                    </div>
+            <!-- Cadena de perlas -->
+            <div class="perlas-container">
+                <div class="perlas-title">
+                    <h4>Cadena de Perlas</h4>
+                    <small>Haz clic en cualquier perla para saltar a ese número</small>
                 </div>
                 
-                <div class="perlas-container">
-                    <div class="perlas-title">
-                        <h4>Perlas de Dhikr</h4>
-                        <small>Cada 33 repeticiones cambia la fórmula</small>
-                    </div>
+                <div class="perlas-chain">
+                    <div class="perlas-line"></div>
                     <div class="perlas-grid" id="perlasGrid">
-                        <!-- Perlas se generan con JS -->
+                        <!-- Perlas generadas por JavaScript -->
                     </div>
                 </div>
                 
-                <div class="dhikr-formulas">
-                    <h4>Fórmulas de Dhikr Recomendadas:</h4>
-                    <div class="formulas-grid">
-                        <div class="formula-item">
-                            <div class="formula-arabic">سُبْحَانَ الله</div>
-                            <div class="formula-latin">Subhanallah</div>
-                            <div class="formula-meaning">Gloria a Alá (33x)</div>
-                        </div>
-                        <div class="formula-item">
-                            <div class="formula-arabic">الْحَمْدُ لِله</div>
-                            <div class="formula-latin">Alhamdulillah</div>
-                            <div class="formula-meaning">Alabado sea Alá (33x)</div>
-                        </div>
-                        <div class="formula-item">
-                            <div class="formula-arabic">اللهُ أَكْبَر</div>
-                            <div class="formula-latin">Allahu Akbar</div>
-                            <div class="formula-meaning">Alá es el más grande (33x)</div>
-                        </div>
-                        <div class="formula-item">
-                            <div class="formula-arabic">لا إله إلا الله</div>
-                            <div class="formula-latin">La ilaha illallah</div>
-                            <div class="formula-meaning">No hay más dios que Alá</div>
-                        </div>
+                <div class="instrucciones">
+                    <p><i class="fas fa-lightbulb"></i> <strong>Consejo:</strong> Presiona la tecla <kbd>ESPACIO</kbd> para contar rápidamente mientras meditas.</p>
+                </div>
+            </div>
+            
+            <!-- Fórmulas de Dhikr -->
+            <div class="dhikr-formulas">
+                <h4>Fórmulas de Dhikr (elige una):</h4>
+                <div class="formulas-grid">
+                    <div class="formula-item activa">
+                        <div class="formula-arabic">سُبْحَانَ الله</div>
+                        <div class="formula-latin">Subhanallah</div>
+                        <div class="formula-meaning">Gloria a Alá (33x)</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-arabic">الْحَمْدُ لِله</div>
+                        <div class="formula-latin">Alhamdulillah</div>
+                        <div class="formula-meaning">Alabado sea Alá (33x)</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-arabic">اللهُ أَكْبَر</div>
+                        <div class="formula-latin">Allahu Akbar</div>
+                        <div class="formula-meaning">Alá es el más grande (33x)</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-arabic">لا إله إلا الله</div>
+                        <div class="formula-latin">La ilaha illallah</div>
+                        <div class="formula-meaning">No hay más dios que Alá</div>
                     </div>
                 </div>
             </div>
+            
+            <!-- Nota importante -->
+            <div class="nota-tasbih">
+                <p><i class="fas fa-info-circle"></i> <strong>Nota:</strong> El dhikr tradicional consiste en repetir Subhanallah (33x), Alhamdulillah (33x), y Allahu Akbar (34x) para completar 100 alabanzas. Este contador te ayuda a mantener la concentración.</p>
+            </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- ===== 99 NOMBRES DE ALÁ (PREVIEW) ===== -->
     <section class="nombres-allah" id="nombres">
