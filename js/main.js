@@ -575,3 +575,73 @@ document.addEventListener('DOMContentLoaded', function() {
         fechaElement.textContent = hoy.toLocaleDateString('es-ES', opciones);
     }
 });
+// contexto-interactivo.js - Interactividad para las tarjetas
+class ContextoInteractivo {
+    constructor() {
+        this.init();
+    }
+    
+    init() {
+        this.setupHoverEffects();
+        this.setupCardClicks();
+        this.setupAnimations();
+    }
+    
+    setupHoverEffects() {
+        const cards = document.querySelectorAll('.contexto-card');
+        
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                const icon = card.querySelector('.card-icon');
+                if(icon) {
+                    icon.style.transform = 'scale(1.1) rotate(5deg)';
+                }
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                const icon = card.querySelector('.card-icon');
+                if(icon) {
+                    icon.style.transform = 'scale(1) rotate(0deg)';
+                }
+            });
+        });
+    }
+    
+    setupCardClicks() {
+        const cards = document.querySelectorAll('.contexto-card');
+        
+        cards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                // Solo si no se hizo clic en un botón o enlace
+                if(!e.target.closest('a') && !e.target.closest('button')) {
+                    const link = card.querySelector('.card-btn');
+                    if(link) {
+                        window.open(link.href, '_blank');
+                    }
+                }
+            });
+        });
+    }
+    
+    setupAnimations() {
+        // Observer para animar al hacer scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.contexto-card').forEach(card => {
+            observer.observe(card);
+        });
+    }
+}
+
+// Inicializar
+document.addEventListener('DOMContentLoaded', () => {
+    if(document.querySelector('.contexto-grid')) {
+        new ContextoInteractivo();
+    }
+});
