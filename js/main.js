@@ -319,30 +319,238 @@ class VersoDelDia {
     }
 }
 
-// ===== FILTRO 99 NOMBRES =====
-function setupFiltroNombres() {
-    const filterBtns = document.querySelectorAll('.filter-btn');
+// nombres-allah.js - Interactividad para los 99 Nombres
+class NombresAllahMejorados {
+    constructor() {
+        this.nombres = [
+            {
+                arabic: "الرَّحْمَنُ",
+                latin: "Ar-Rahman",
+                significado: "El Misericordiosísimo",
+                explicacion: "Aquel cuya misericordia abarca todas las cosas en esta vida y en la otra. Es la misericordia universal que alcanza a creyentes y no creyentes por igual.",
+                categoria: "amor",
+                referencia: "Mencionado 57 veces en el Corán",
+                beneficios: "Invocar este nombre trae misericordia y bendición a todos los aspectos de la vida."
+            },
+            {
+                arabic: "الرَّحِيمُ",
+                latin: "Ar-Rahim",
+                significado: "El Compasivo",
+                explicacion: "Aquel que otorga Su misericordia especialmente a los creyentes en la Otra Vida. Es la misericordia especial reservada para quienes creen.",
+                categoria: "amor",
+                referencia: "Mencionado 114 veces en el Corán",
+                beneficios: "Trae perdón, misericordia especial y recompensa en la Otra Vida."
+            },
+            // Agregar más nombres aquí...
+        ];
+        
+        this.init();
+    }
     
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            // Actualizar botones activos
-            filterBtns.forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Filtrar elementos
-            const filter = this.dataset.filter;
-            const nombres = document.querySelectorAll('.nombre-item');
-            
-            nombres.forEach(nombre => {
-                if(filter === 'all' || nombre.dataset.category === filter) {
-                    nombre.style.display = 'block';
-                } else {
+    init() {
+        this.setupFiltros();
+        this.setupModal();
+        this.setupAnimaciones();
+        this.setupHoverEffects();
+    }
+    
+    setupFiltros() {
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Quitar activo de todos
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // Activar este
+                btn.classList.add('active');
+                
+                // Aplicar filtro
+                const filter = btn.dataset.filter;
+                this.aplicarFiltro(filter);
+                
+                // Efecto visual
+                this.animarFiltro(btn);
+            });
+        });
+    }
+    
+    aplicarFiltro(filter) {
+        const nombres = document.querySelectorAll('.nombre-item');
+        
+        nombres.forEach(nombre => {
+            if(filter === 'all' || nombre.dataset.category === filter) {
+                nombre.style.display = 'block';
+                setTimeout(() => {
+                    nombre.style.opacity = '1';
+                    nombre.style.transform = 'translateY(0)';
+                }, 10);
+            } else {
+                nombre.style.opacity = '0';
+                nombre.style.transform = 'translateY(20px)';
+                setTimeout(() => {
                     nombre.style.display = 'none';
+                }, 300);
+            }
+        });
+    }
+    
+    animarFiltro(btn) {
+        btn.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+            btn.style.transform = 'scale(1)';
+        }, 150);
+    }
+    
+    setupModal() {
+        const modal = document.getElementById('nombreModal');
+        const closeBtn = document.getElementById('modalClose');
+        const nombresItems = document.querySelectorAll('.nombre-item');
+        
+        if(!modal) return;
+        
+        // Abrir modal al hacer clic en un nombre
+        nombresItems.forEach(item => {
+            item.addEventListener('click', () => {
+                this.abrirModal(item);
+            });
+        });
+        
+        // Cerrar modal
+        closeBtn?.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+        
+        // Cerrar al hacer clic fuera
+        modal.addEventListener('click', (e) => {
+            if(e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+        
+        // Cerrar con ESC
+        document.addEventListener('keydown', (e) => {
+            if(e.key === 'Escape' && modal.classList.contains('active')) {
+                modal.classList.remove('active');
+            }
+        });
+    }
+    
+    abrirModal(item) {
+        const modal = document.getElementById('nombreModal');
+        const content = document.getElementById('modalContent');
+        
+        if(!modal || !content) return;
+        
+        const arabic = item.querySelector('.nombre-arabic')?.textContent || '';
+        const latin = item.querySelector('.nombre-latin')?.textContent || '';
+        const significado = item.querySelector('.nombre-significado')?.textContent || '';
+        const explicacion = item.querySelector('.nombre-explicacion')?.textContent || '';
+        const categoria = item.querySelector('.nombre-categoria')?.textContent || '';
+        
+        const nombreCompleto = this.nombres.find(n => n.arabic === arabic) || {};
+        
+        content.innerHTML = `
+            <div style="padding: 3rem;">
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <div style="font-family: var(--font-arabic); font-size: 4rem; color: var(--verde-profundo); 
+                         direction: rtl; margin-bottom: 1rem; text-shadow: 0 5px 15px rgba(13, 115, 119, 0.1);">
+                        ${arabic}
+                    </div>
+                    <div style="font-size: 1.8rem; font-weight: 600; color: var(--gris-texto); margin-bottom: 0.5rem;">
+                        ${latin}
+                    </div>
+                    <div style="font-size: 1.4rem; color: var(--dorado-sutil); font-weight: 500; margin-bottom: 2rem;">
+                        ${significado}
+                    </div>
+                    <span style="display: inline-block; padding: 0.5rem 1.5rem; background: rgba(212, 175, 55, 0.1); 
+                          color: var(--dorado-sutil); border-radius: 20px; border: 1px solid rgba(212, 175, 55, 0.3);">
+                        ${categoria}
+                    </span>
+                </div>
+                
+                <div style="margin-bottom: 2rem;">
+                    <h3 style="color: var(--verde-profundo); margin-bottom: 1rem; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-book-open"></i> Significado Profundo
+                    </h3>
+                    <p style="color: #555; line-height: 1.7; font-size: 1.1rem;">
+                        ${nombreCompleto.explicacion || explicacion}
+                    </p>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+                    <div style="background: var(--blanco-rotura); padding: 1.5rem; border-radius: 15px; border-left: 4px solid var(--turquesa);">
+                        <h4 style="color: var(--verde-profundo); margin-bottom: 0.5rem;">
+                            <i class="fas fa-quran"></i> En el Corán
+                        </h4>
+                        <p style="color: #666;">
+                            ${nombreCompleto.referencia || 'Mencionado múltiples veces en el Corán'}
+                        </p>
+                    </div>
+                    
+                    <div style="background: var(--blanco-rotura); padding: 1.5rem; border-radius: 15px; border-left: 4px solid var(--dorado-sutil);">
+                        <h4 style="color: var(--verde-profundo); margin-bottom: 0.5rem;">
+                            <i class="fas fa-hands-praying"></i> Beneficios
+                        </h4>
+                        <p style="color: #666;">
+                            ${nombreCompleto.beneficios || 'Invocar este nombre acerca al creyente a Dios'}
+                        </p>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--gris-claro); text-align: center;">
+                    <p style="color: #666; font-style: italic;">
+                        <i class="fas fa-lightbulb"></i> Reflexiona sobre este nombre hoy. ¿Cómo se manifiesta en tu vida?
+                    </p>
+                </div>
+            </div>
+        `;
+        
+        modal.classList.add('active');
+    }
+    
+    setupAnimaciones() {
+        // Animación de entrada escalonada
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.nombre-item').forEach(item => {
+            observer.observe(item);
+        });
+    }
+    
+    setupHoverEffects() {
+        const nombres = document.querySelectorAll('.nombre-item');
+        
+        nombres.forEach(nombre => {
+            nombre.addEventListener('mouseenter', () => {
+                const arabic = nombre.querySelector('.nombre-arabic');
+                if(arabic) {
+                    arabic.style.transform = 'scale(1.05)';
+                    arabic.style.transition = 'transform 0.3s ease';
+                }
+            });
+            
+            nombre.addEventListener('mouseleave', () => {
+                const arabic = nombre.querySelector('.nombre-arabic');
+                if(arabic) {
+                    arabic.style.transform = 'scale(1)';
                 }
             });
         });
-    });
+    }
 }
+
+// Inicializar
+document.addEventListener('DOMContentLoaded', () => {
+    if(document.querySelector('.nombres-allah')) {
+        new NombresAllahMejorados();
+    }
+});
 
 // ===== INICIALIZACIÓN =====
 document.addEventListener('DOMContentLoaded', function() {
