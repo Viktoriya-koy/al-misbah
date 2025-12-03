@@ -727,7 +727,7 @@ header {
         gap: 6px;
     }
 }
-🤖 JAVASCRIPT MEJO
+
 
 /* ===== 99 NOMBRES ===== */
 /* ===== SECCIÓN 99 NOMBRES - DISEÑO ESPECIAL ===== */
@@ -1271,7 +1271,418 @@ header {
 .nombre-item:nth-child(4) { animation-delay: 0.3s; }
 .nombre-item:nth-child(5) { animation-delay: 0.4s; }
 .nombre-item:nth-child(6) { animation-delay: 0.5s; }
+/* ===== VIVIR EL ISLAM - DISEÑO CUADRÍCULA ===== */
+.contexto {
+    padding: 6rem 0;
+    background: linear-gradient(135deg, 
+        rgba(13, 115, 119, 0.03) 0%, 
+        rgba(50, 224, 196, 0.03) 50%,
+        rgba(245, 249, 249, 0.9) 100%);
+    position: relative;
+}
 
+.contexto::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+        transparent, 
+        var(--turquesa), 
+        transparent);
+}
+
+.contexto-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+    margin-top: 3rem;
+}
+
+.contexto-card {
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.08),
+        0 4px 12px rgba(13, 115, 119, 0.05);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.contexto-card:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 
+        0 25px 50px rgba(13, 115, 119, 0.15),
+        0 15px 30px rgba(212, 175, 55, 0.1);
+    border-color: rgba(212, 175, 55, 0.3);
+}
+
+.contexto-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, 
+        var(--turquesa), 
+        var(--verde-profundo), 
+        var(--dorado-sutil));
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.contexto-card:hover::before {
+    opacity: 1;
+}
+
+/* CABECERA DE LA TARJETA */
+.card-header {
+    padding: 2.5rem 2.5rem 1.5rem;
+    text-align: center;
+    position: relative;
+}
+
+.card-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--verde-profundo), var(--turquesa));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    color: white;
+    font-size: 2.5rem;
+    box-shadow: 
+        0 10px 25px rgba(13, 115, 119, 0.3),
+        inset 0 3px 8px rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.card-icon::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-radius: 50%;
+    border: 2px solid rgba(212, 175, 55, 0.3);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.contexto-card:hover .card-icon {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 
+        0 15px 35px rgba(13, 115, 119, 0.4),
+        inset 0 3px 8px rgba(255, 255, 255, 0.4);
+}
+
+.contexto-card:hover .card-icon::after {
+    opacity: 1;
+}
+
+.card-header h3 {
+    font-size: 1.5rem;
+    color: var(--verde-profundo);
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.card-tag {
+    display: inline-block;
+    padding: 0.4rem 1.2rem;
+    background: rgba(212, 175, 55, 0.1);
+    color: var(--dorado-sutil);
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+/* CONTENIDO DE LA TARJETA */
+.card-content {
+    padding: 0 2.5rem 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-description {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+    font-size: 1.05rem;
+}
+
+/* LISTA DE CONSEJOS */
+.card-tips {
+    margin-bottom: 1.5rem;
+}
+
+.card-tips h4 {
+    color: var(--verde-profundo);
+    font-size: 1rem;
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.card-tips h4 i {
+    color: var(--turquesa);
+}
+
+.tips-list {
+    list-style: none;
+    padding-left: 1.5rem;
+}
+
+.tips-list li {
+    color: #666;
+    margin-bottom: 0.5rem;
+    position: relative;
+    padding-left: 1.5rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.tips-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--dorado-sutil);
+    font-weight: bold;
+}
+
+/* PIE DE LA TARJETA */
+.card-footer {
+    padding: 1.5rem 2.5rem 2.5rem;
+    text-align: center;
+    border-top: 1px solid rgba(212, 175, 55, 0.1);
+    margin-top: auto;
+}
+
+.card-btn {
+    background: linear-gradient(135deg, var(--verde-profundo), #0a5c5f);
+    color: white;
+    padding: 1rem 2.2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(13, 115, 119, 0.2);
+    border: 2px solid transparent;
+    width: 100%;
+    justify-content: center;
+}
+
+.card-btn:hover {
+    background: linear-gradient(135deg, #0a5c5f, var(--verde-profundo));
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(13, 115, 119, 0.3);
+    color: white;
+}
+
+.card-btn i {
+    font-size: 1.1rem;
+    transition: transform 0.3s ease;
+}
+
+.card-btn:hover i {
+    transform: translateX(3px);
+}
+
+/* BADGE DE DIFICULTAD */
+.dificultad {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.dificultad.facil {
+    color: #2ecc71;
+    border-color: rgba(46, 204, 113, 0.3);
+    background: rgba(46, 204, 113, 0.1);
+}
+
+.dificultad.medio {
+    color: #f39c12;
+    border-color: rgba(243, 156, 18, 0.3);
+    background: rgba(243, 156, 18, 0.1);
+}
+
+.dificultad.complejo {
+    color: #e74c3c;
+    border-color: rgba(231, 76, 60, 0.3);
+    background: rgba(231, 76, 60, 0.1);
+}
+
+/* ANIMACIONES */
+@keyframes cardEntrada {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.contexto-card {
+    animation: cardEntrada 0.6s ease backwards;
+}
+
+.contexto-card:nth-child(2) { animation-delay: 0.1s; }
+.contexto-card:nth-child(3) { animation-delay: 0.2s; }
+.contexto-card:nth-child(4) { animation-delay: 0.3s; }
+.contexto-card:nth-child(5) { animation-delay: 0.4s; }
+.contexto-card:nth-child(6) { animation-delay: 0.5s; }
+
+/* BANNER EXTRA */
+.contexto-extra {
+    margin-top: 4rem;
+    padding: 2.5rem;
+    background: linear-gradient(135deg, var(--verde-profundo), #0a5c5f);
+    border-radius: 24px;
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.contexto-extra::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('resources/pattern-islamic-light.svg');
+    background-size: 300px;
+    opacity: 0.1;
+}
+
+.contexto-extra-content {
+    position: relative;
+    z-index: 1;
+}
+
+.contexto-extra h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--dorado-brillante);
+}
+
+.contexto-extra p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.extra-btn {
+    background: white;
+    color: var(--verde-profundo);
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.extra-btn:hover {
+    background: var(--dorado-brillante);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* RESPONSIVE */
+@media (max-width: 1200px) {
+    .contexto-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .contexto {
+        padding: 4rem 0;
+    }
+    
+    .contexto-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .contexto-card {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    
+    .card-header,
+    .card-content,
+    .card-footer {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+    
+    .contexto-extra {
+        padding: 2rem;
+        margin: 3rem 1rem 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .card-header,
+    .card-content,
+    .card-footer {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+    
+    .card-icon {
+        width: 70px;
+        height: 70px;
+        font-size: 2rem;
+    }
+    
+    .card-header h3 {
+        font-size: 1.3rem;
+    }
+}
 /* ===== BANNER PREGUNTAS ===== */
 .preguntas-cta {
     padding: 4rem 0;
